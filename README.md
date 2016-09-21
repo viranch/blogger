@@ -2,6 +2,13 @@
 
 Collection of automation code to start a wordpress blog on AWS
 
+### Dependencies
+
+Install:
+
+* Terraform
+* Ansible
+
 ### Requirements
 
 You will need AWS credentials to use this automation. Get the "access key" and "secret key" for your account, and copy the `dev.tfvars.sample` to `$ENV.tfvars` and fill in the 2 values.

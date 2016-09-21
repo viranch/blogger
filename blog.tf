@@ -14,6 +14,11 @@ resource "aws_instance" "backend" {
     ami = "ami-21d30f42"
     instance_type = "${var.server_size}"
     key_name = "${aws_key_pair.user-key.key_name}"
+    tags {
+        Name = "app${count.index + 1}.${var.env}"
+        Group = "backend"
+        sshUser = "ubuntu"
+    }
 }
 
 resource "aws_elb" "frontend" {
