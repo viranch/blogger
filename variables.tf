@@ -1,4 +1,5 @@
 variable "env" {}
+variable "app" {}
 variable "access_key" {}
 variable "secret_key" {}
 variable "region" {

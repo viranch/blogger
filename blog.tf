@@ -15,7 +15,7 @@ resource "aws_instance" "backend" {
     instance_type = "${var.server_size}"
     key_name = "${aws_key_pair.user-key.key_name}"
     tags {
-        Name = "app${count.index + 1}.${var.env}"
+        Name = "${var.app}${count.index + 1}.${var.env}"
         Group = "backend"
         sshUser = "ubuntu"
     }
