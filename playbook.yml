@@ -34,9 +34,19 @@
         name: docker
         enabled: yes
         state: started
+    # DB per backend won't work since it needs to be central in a cluster
+    # Adding here because wordpress won't start without a DB
+    - name: Run a DB
+      docker_container:
+        name: mydb
+        image: mariadb
+        env:
+          MYSQL_ROOT_PASSWORD: mypassword
     - name: Pull and run wordpress
       docker_container:
         name: my_blog
         image: wordpress
+        links:
+          - "mydb:mysql"
         ports:
           - "80:80"
