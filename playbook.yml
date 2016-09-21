@@ -1,6 +1,7 @@
 - hosts: "aws_tag_Group=backend"
   become: yes
   tasks:
+    ## From docker installation page
     - name: Install https stuff
       apt: update_cache=yes name={{item}} state=installed
       with_items:
@@ -27,8 +28,15 @@
     - name: Install docker
       apt:
         name: docker-engine
+    ## END: From docker installation page
     - name: Start docker
       service:
         name: docker
         enabled: yes
         state: started
+    - name: Pull and run wordpress
+      docker_container:
+        name: my_blog
+        image: wordpress
+        ports:
+          - "80:80"
