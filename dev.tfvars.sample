@@ -1,3 +1,4 @@
 # remove the angle brackets when filling in the values
 access_key = "<access key here>"
 secret_key = "<secret key here>"
+ssh_key = "<your public ssh key here>"

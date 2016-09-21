@@ -7,3 +7,8 @@ variable "region" {
 variable "server_size" {
     default = "t2.micro"
 }
+variable "server_count" {
+    default = 1
+}
+
+variable "ssh_key" {}

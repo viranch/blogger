@@ -4,7 +4,29 @@ provider "aws" {
     region = "${var.region}"
 }
 
-resource "aws_instance" "blog_backend" {
+resource "aws_key_pair" "user-key" {
+    key_name = "deploy-key"
+    public_key = "${var.ssh_key}"
+}
+
+resource "aws_instance" "backend" {
+    count = "${var.server_count}"
     ami = "ami-21d30f42"
     instance_type = "${var.server_size}"
+    key_name = "${aws_key_pair.user-key.key_name}"
+}
+
+resource "aws_elb" "frontend" {
+    availability_zones = ["${var.region}a"]
+    listener {
+        lb_port = 80
+        instance_port = 80
+        lb_protocol = "http"
+        instance_protocol = "http"
+    }
+    instances = ["${aws_instance.backend.*.id}"]
+}
+
+output "ip" {
+    value = "${aws_elb.frontend.dns_name}"
 }
