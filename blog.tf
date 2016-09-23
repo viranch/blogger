@@ -32,6 +32,6 @@ resource "aws_elb" "frontend" {
     instances = ["${aws_instance.backend.*.id}"]
 }
 
-output "ip" {
+output "elb_ip" {
     value = "${aws_elb.frontend.dns_name}"
 }
