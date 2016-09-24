@@ -22,7 +22,7 @@ resource "aws_instance" "backend" {
 }
 
 resource "aws_elb" "frontend" {
-    availability_zones = ["${var.region}a"]
+    availability_zones = ["${var.region}a", "${var.region}b"]
     listener {
         lb_port = 80
         instance_port = 80

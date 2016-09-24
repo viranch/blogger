@@ -29,6 +29,13 @@
       apt:
         name: docker-engine
     ## END: From docker installation page
+    - name: Install pip & virtualenv
+      apt: name={{item}} state=installed
+      with_items:
+        - python-pip
+        - python-virtualenv
+    - name: Install docker-py
+      pip: name=docker-py version=1.9.0
     - name: Start docker
       service:
         name: docker
