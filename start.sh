@@ -5,16 +5,17 @@ ENVI=$2
 N=$3
 SIZE=$4
 
-LOG_FILE="debug_`date +%FT%T`.log"
+LOG_FILE="./.state/debug_`date +%FT%T`.log"
 
 echo "Building the builder image..."
 docker build -t build/blogger . 2>&1 >> $LOG_FILE || exit 1
 
 terraform() {
-    docker run --rm -v $PWD/site-data:/data -w /data build/blogger terraform "$@"
+    subcmd=$1; shift
+    docker run --rm -v $PWD/site-data/terraform:/data:ro -v $PWD/.state:/state -w /data build/blogger terraform $subcmd -state="/state/terraform.tfstate" "$@"
 }
 ansible-playbook() {
-    docker run --rm -v $PWD/site-data:/data -w /data -e TERRAFORM_STATE_ROOT=/data -v $HOME/.ssh:/root/.ssh:ro build/blogger ansible-playbook "$@"
+    docker run --rm -v $PWD/site-data/ansible:/data:ro -v $PWD/.state:/state -w /data -e TERRAFORM_STATE_ROOT=/state -v $HOME/.ssh:/root/.ssh:ro build/blogger ansible-playbook "$@"
 }
 
 echo "Spinning up instances..."
