@@ -1,0 +1,9 @@
+FROM ubuntu:16.04
+
+RUN apt-get update; \
+    apt-get install -y --no-install-recommends openssh-client python-pip python-setuptools python-wheel python-paramiko; \
+    rm -rf /var/lib/apt/lists/*
+
+RUN pip install ansible
+
+ENTRYPOINT ["/usr/local/bin/ansible-playbook"]
