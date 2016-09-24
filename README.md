@@ -8,7 +8,7 @@ You only need to have a working docker setup on this machine.
 
 ### Requirements
 
-You will need AWS credentials to use this automation. Get the "access key" and "secret key" for your account, and copy the `dev.tfvars.sample` to `$ENV.tfvars` and fill in the 2 values. You also need to paste your SSH public key to the file that will be used to run deployment configuration.
+You will need AWS credentials to use this automation. Get the "access key" and "secret key" for your account, and copy the `dev.tfvars.sample` to `$ENV.tfvars` (inside `site-data/terraform` directory) and fill in the 2 values. You also need to paste your SSH public key to the file that will be used to run deployment configuration.
 
 ### Run
 
