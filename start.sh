@@ -11,10 +11,10 @@ echo "Building the builder image..."
 docker build -t build/blogger . 2>&1 >> $LOG_FILE || exit 1
 
 terraform() {
-    docker run --rm -v $PWD/site-data:/data -w /data build/blogger terraform $@
+    docker run --rm -v $PWD/site-data:/data -w /data build/blogger terraform "$@"
 }
 ansible-playbook() {
-    docker run --rm -v $PWD/site-data:/data -w /data -e TERRAFORM_STATE_ROOT=/data -v $HOME/.ssh:/root/.ssh:ro build/blogger ansible-playbook $@
+    docker run --rm -v $PWD/site-data:/data -w /data -e TERRAFORM_STATE_ROOT=/data -v $HOME/.ssh:/root/.ssh:ro build/blogger ansible-playbook "$@"
 }
 
 echo "Spinning up instances..."
